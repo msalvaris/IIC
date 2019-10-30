@@ -1,0 +1,142 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "DEBUG",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [
+                        "--mode", "IID", 
+                        "--dataset", "Coco164kCuratedFew", 
+                        "--dataset_root", "/data/coco", 
+                        "--model_ind", "555", 
+                        "--arch", "SegmentationNet10aTwoHead", 
+                        "--num_epochs", "4800", 
+                        "--lr", "0.0001", 
+                        "--lamb_A", "1.0", 
+                        "--lamb_B", "1.5", 
+                        "--num_sub_heads", "1", 
+                        "--batch_sz", "20", 
+                        "--num_dataloaders", "1", 
+                        "--output_k_A", "15", 
+                        "--output_k_B", "3", 
+                        "--gt_k", "3", 
+                        "--pre_scale_factor", "0.33", 
+                        "--input_sz", "128", 
+                        "--half_T_side_sparse_min", "0", 
+                        "--half_T_side_sparse_max", "0", 
+                        "--half_T_side_dense", "10", 
+                        "--coco_164k_curated_version", "6", 
+                        "--batchnorm_track",
+                        "--use_uncollapsed_loss",
+                        "--include_rgb",
+                        "--pre_scale_all",
+                        "--use_coarse_labels", 
+                        "--fine_to_coarse_dict", "/home/mat/repos/IIC/iic/datasets/segmentation/util/out/fine_to_coarse_dict.pickle"
+                    ],
+            "console": "integratedTerminal",
+            "env": {
+                    "PYTHONPATH": "${workspaceFolder}:$PYTHONPATH",
+                    "CUDA_VISIBLE_DEVICES": "0"
+            },
+            "justMyCode": false,
+        },
+        {
+            "name": "DEBUG BASIC",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "env": {
+                    "PYTHONPATH": "${workspaceFolder}:$PYTHONPATH",
+            },
+            "justMyCode": false,
+        },
+        {
+            "name": "DEBUG Main",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["/data/penobscot", "--exp", "testing", "--arch", "vgg16", "--lr", "0.05", "--wd", "-5", "--k", "1000", "--verbose", "--workers", "0", "--batch", "64"],
+            "env": {
+                    "PYTHONPATH": "${workspaceFolder}:$PYTHONPATH",
+            },
+            "justMyCode": false,
+        },
+        {
+            "name": "Debug Train",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/interpretation/experiments/segmentation/dutchf3/local/train.py",
+            "args": ["WORKERS", "0", "--cfg", "${input:localConfig}"],
+            "console": "integratedTerminal",
+            "env": {
+                    "PYTHONPATH": "${workspaceFolder}:$PYTHONPATH",
+            },
+        },
+        {
+            "name": "Train",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/interpretation/experiments/segmentation/dutchf3/local/train.py",
+            "args": ["--cfg", "${input:localConfig}"],
+            "console": "integratedTerminal",
+            "env": {
+                    "PYTHONPATH": "${workspaceFolder}:$PYTHONPATH",
+            },    
+        },
+        {
+            "name": "Train Distributed",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/interpretation/experiments/segmentation/dutchf3/distributed/train.py",
+            "args": ["--cfg", "${input:distConfig}"],
+            "console": "integratedTerminal",
+            "env": {
+                    "PYTHONPATH": "${workspaceFolder}:$PYTHONPATH",
+            },    
+        },
+    ],
+    "inputs":[
+        {
+            "id": "localConfig",
+            "type": "pickString",
+            "description": "What network config do you want to run",
+            "options": [
+                "experiments/interpretation/dutchf3/local/configs/hrnet.yaml", 
+                "experiments/interpretation/dutchf3/local/configs/seresnet_unet.yaml", 
+                "experiments/interpretation/dutchf3/local/configs/patch_deconvnet.yaml", 
+                "experiments/interpretation/dutchf3/local/configs/patch_deconvnet_skip.yaml", 
+                "experiments/interpretation/dutchf3/local/configs/unet.yaml", 
+                "experiments/interpretation/penobscot/local/configs/hrnet.yaml", 
+                "experiments/interpretation/penobscot/local/configs/seresnet_unet.yaml", 
+                "experiments/interpretation/penobscot/local/configs/patch_deconvnet.yaml", 
+                "experiments/interpretation/penobscot/local/configs/patch_deconvnet_skip.yaml", 
+                "experiments/interpretation/penobscot/local/configs/unet.yaml",  
+                "experiments/interpretation/penobscot_cluster/local/configs/unet_cluster.yaml",  
+            ],
+            "default": "experiments/interpretation/dutchf3/local/configs/hrnet.yaml",
+            // type specific configuration attributes
+        },
+        {
+            "id": "distConfig",
+            "type": "pickString",
+            "description": "What network config do you want to run",
+            "options": [
+                "interpretation/experiments/interpretation/dutchf3/distributed/configs/hrnet.yaml", 
+                "interpretation/experiments/interpretation/dutchf3/distributed/configs/seresnet_unet.yaml", 
+                "interpretation/experiments/interpretation/dutchf3/distributed/configs/patch_deconvnet.yaml", 
+                "interpretation/experiments/interpretation/dutchf3/distributed/configs/patch_deconvnet_skip.yaml", 
+                "interpretation/experiments/interpretation/dutchf3/distributed/configs/unet.yaml",
+               
+            ],
+            "default": "interpretation/experiments/interpretation/dutchf3/distributed/configs/hrnet.yaml",
+            // type specific configuration attributes
+        }
+    ]
+}

@@ -1,0 +1,19 @@
+{   "python.jediEnabled": false,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "python.pythonPath": "/data/anaconda/envs/iic/bin/python",
+    "python.formatting.provider": "black",
+    "git.autofetch": true,
+    "python.linting.pylintEnabled": true,
+    "python.linting.pylintArgs": [
+        "--enable=W0614"
+    ],
+    "window.zoomLevel": 2,
+    "autoDocstring.docstringFormat": "google",
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 100,
+    "editor.suggestSelection": "first",
+    "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+    "python.envFile": "${workspaceFolder}/.env"
+}
